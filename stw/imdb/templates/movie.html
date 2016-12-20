@@ -1,0 +1,17 @@
+{% load staticfiles %}
+<img src="{% static movie.cover_img %}" />
+<h3>{{ movie.name }}</h3>
+<h4>{{ movie.description }}</h4>
+<hr>
+{% for comment in movie.comment_set.all %}
+	<p>{{comment.name}}: {{comment.text}}</p>
+{% endfor %}
+
+<form action="/imdb/movie/{{ movie.id }}/comment/" method="post">
+	{% csrf_token %}
+	<label for="name">Name: </label>
+	<input id="name" type="text" name="name">
+	<label for="comment">Comment: </label>
+	<input id="comment" type="text" name="comment">
+	<input type="submit" value="OK">
+</form>
